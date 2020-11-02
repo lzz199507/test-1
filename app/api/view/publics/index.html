@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <style>
+	.grid-content {
+	    border-radius: 4px;
+	}
+	.qcrl-api-view-title {
+	  	text-align: center;
+	}
+	.qcrl-api-view-content {
+	  	
+	}
+    .vue-title {
+        text-align: center;
+    }
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  	<div id="app">
+  		<div id="view-content" v-cloak>
+            <!-- <h3 class="vue-title" style="font-size: 2.5rem;">{{ title }}</h3> -->
+  			<div class="vue-title" style="font-size: 2rem" v-html="content">{{ content }}</div>
+  		</div>
+  	</div>
+</body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!-- 引入组件库 必须要先引入 vue.js -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  	<script>
+  		var id = {$id};
+  		new Vue({
+  			el: "#view-content",
+  			data: {
+  				title:null,
+  				content:null,
+  			},
+  			mounted() {
+  				axios
+  				.get("http://plp.itqiyao.com/api/Publics/getArticleInfo/id/"+id)
+  				.then(res => {
+  					this.title = res.data.data.title;
+  					this.content = res.data.data.content;
+  					console.log(res);
+  				})
+  				.catch(function (error) {
+  					console.log(error);
+  				})
+  			}
+  		});
+  	</script>
+  
+</html>
